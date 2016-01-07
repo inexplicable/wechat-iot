@@ -14,10 +14,10 @@ app.get('/', function(req, res) {
   var nonce = req.query.nonce;
   var echostr = req.query.echostr;
 
-  console.log('[timestamp:%s, nonce:%s, echostr:%s, signature:%s]', timestamp, nonce, echostr, signature);
+  console.log('[timestamp:%s, nonce:%s, echostr:%s, concat:%s, signature:%s]', timestamp, nonce, echostr, _.sortBy([timestamp, nonce, '1']).join(''), signature);
 
   var sha1 = crypto.createHash('sha1');
-  var expects = sha1.update(_.sortBy([timestamp, nonce, echostr]).join('')).digest('hex');
+  var expects = sha1.update(_.sortBy([timestamp, nonce, '1']).join(''), 'utf8').digest('hex');
 
   console.log('[signature:%s vs. expects:%s]', signature, expects);
 
