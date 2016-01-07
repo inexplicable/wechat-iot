@@ -1,0 +1,14 @@
+xml
+  ToUserName!= ToUserName
+  FromUserName!= FromUserName
+  CreateTime!= CreateTime
+  MsgType!= MsgType
+  Content!= Content
+  ArticleCount!= Articles.length
+  Articles
+    each article in Articles
+      item
+        Title!= article.Title
+        Description!= article.Description
+        PicUrl!= article.PicUrl
+        Url!= article.Url

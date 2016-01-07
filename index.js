@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
   var nonce = req.query.nonce;
   var echostr = req.query.echostr;
 
-  console.log('[timestamp:%s, nonce:%s, echostr:%s, concat:%s, signature:%s]', timestamp, nonce, echostr, _.sortBy([timestamp, nonce, '1']).join(''), signature);
+  console.log('[timestamp:%s, nonce:%s, echostr:%s, signature:%s]', timestamp, nonce, echostr, signature);
 
   var sha1 = crypto.createHash('sha1');
   var expects = sha1.update(_.sortBy([timestamp, nonce, '1']).join(''), 'utf8').digest('hex');
@@ -50,11 +50,21 @@ app.post('/', function(req, res){
           FromUserName: parsed.xml.ToUserName[0],
           ToUserName  : parsed.xml.FromUserName[0],
           CreateTime  : Date.now(),
-          MsgType     : 'text',
-          Content     : 'ECHO:' + parsed.xml.Content[0]
+          MsgType     : 'news',
+          Articles    : [{
+            Title       : 'title1',
+            Description : 'description1',
+            PicUrl      : 'http://mp.weixin.qq.com/debug/zh_CN/htmledition/images/bg/bg_logo1f2fc8.png',
+            Url         : 'http://ec2-54-213-251-18.us-west-2.compute.amazonaws.com/hello'
+          }]
         });
     }
   });
+});
+
+app.get('/hello', function(req, res){
+
+  res.type('html').render('hello');
 });
 
 var server = app.listen(80, function () {
