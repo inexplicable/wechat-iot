@@ -3,10 +3,13 @@
 var express = require('express');
 var crypto = require('crypto');
 var _ = require('lodash');
+var bodyParser = require('body-parser')
 var parseXml = require('xml2js').parseString;
 
 //routes
 var app = express();
+
+app.use(bodyParser.text({ type: 'text/html' }))
 
 app.get('/', function(req, res) {
 
