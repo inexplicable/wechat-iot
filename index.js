@@ -38,7 +38,7 @@ app.post('/', function(req, res){
   parseXml(req.body, function(err, parsed){
 
     if(err){
-        console.log('cannot handle:%s', req.body);
+        console.log('cannot handle:%j', req.body);
         res.status(500).send('fail');
     }
     else{
