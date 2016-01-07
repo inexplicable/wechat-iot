@@ -3,6 +3,7 @@
 var express = require('express');
 var crypto = require('crypto');
 var _ = require('lodash');
+var parseXml = require('xml2js').parseXml;
 
 //routes
 var app = express();
@@ -27,6 +28,20 @@ app.get('/', function(req, res) {
   else{
     res.status(400).send('signature denied');
   }
+});
+
+app.post('/', function(req, res){
+
+  parseXml(req.body, function(err, parsed){
+
+    if(err){
+        res.status(500).send('cannot handle:%s', req.body);
+    }
+    else{
+        console.log('processing:%j', parsed);
+        res.send('ok');
+    }
+  });
 });
 
 var server = app.listen(80, function () {

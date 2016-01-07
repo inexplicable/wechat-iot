@@ -18,6 +18,7 @@
   "homepage": "https://github.com/inexplicable/wechat-iot#readme",
   "dependencies": {
     "express": "^4.13.3",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "xml2js": "^0.4.15"
   }
 }
