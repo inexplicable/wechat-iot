@@ -3,7 +3,7 @@
 var express = require('express');
 var crypto = require('crypto');
 var _ = require('lodash');
-var parseXml = require('xml2js').parseXml;
+var parseXml = require('xml2js').parseString;
 
 //routes
 var app = express();
