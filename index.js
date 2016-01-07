@@ -9,7 +9,9 @@ var parseXml = require('xml2js').parseString;
 //routes
 var app = express();
 
-app.use(bodyParser.text({ type: 'text/*' }))
+app.use(bodyParser.text({ type: 'text/*' }));
+app.set('views', './views');
+app.set('view engine', 'jade');
 
 app.get('/', function(req, res) {
 
@@ -43,7 +45,14 @@ app.post('/', function(req, res){
     }
     else{
         console.log('processing:%j', parsed);
-        res.send('ok');
+
+        res.type('xml').render('echo', {
+          FromUserName: parsed.xml.ToUserName[0],
+          ToUserName  : parsed.xml.FromUserName[0],
+          CreateTime  : Date.now(),
+          MsgType     : 'text',
+          Content     : 'ECHO:' + parsed.xml.Content[0]
+        });
     }
   });
 });
