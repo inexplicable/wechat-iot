@@ -9,7 +9,7 @@ var parseXml = require('xml2js').parseString;
 //routes
 var app = express();
 
-app.use(bodyParser.text({ type: 'text/html' }))
+app.use(bodyParser.text({ type: 'text/*' }))
 
 app.get('/', function(req, res) {
 
@@ -38,7 +38,7 @@ app.post('/', function(req, res){
   parseXml(req.body, function(err, parsed){
 
     if(err){
-        console.log('cannot handle:%j', req.body);
+        console.log('cannot handle:%s and %j', req.is('text/*'), req.body);
         res.status(500).send('fail');
     }
     else{
