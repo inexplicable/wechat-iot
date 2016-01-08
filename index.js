@@ -46,7 +46,7 @@ app.post('/', function(req, res){
     else{
         console.log('processing:%j', parsed);
 
-        res.type('xml').render('echo', {
+        res.type('xml').render('news', {
           FromUserName: parsed.xml.ToUserName[0],
           ToUserName  : parsed.xml.FromUserName[0],
           CreateTime  : Date.now(),
