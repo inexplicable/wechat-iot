@@ -73,7 +73,7 @@ app.get('/hello', function(req, res){
   var signature = sha1.update(hashing, 'ascii').digest('hex');
 
   res.type('html').render('hello', {
-    appId         : 'wx745009b2b31b5969'
+    appId         : 'wx745009b2b31b5969',
     noncestr      : req.query.noncestr,
     timestamp     : req.query.timestamp,
     jsapi_ticket  : req.query.jsapi_ticket,
