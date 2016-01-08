@@ -64,7 +64,9 @@ app.post('/', function(req, res){
 
 app.get('/hello', function(req, res){
 
-  var hashing = 'jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSsmedBlC0zlg0Mk9A19GcvSkNdVZLDSTgOMHsCTOVm96w&noncestr=' + req.query.noncestr + '&timestamp=' + req.query.timestamp + '&url=' + req.url;
+  var noncestr = req.query.noncestr || Date.now();
+  var now = Date.now();
+  var hashing = 'jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSsmedBlC0zlg0Mk9A19GcvSkNdVZLDSTgOMHsCTOVm96w&noncestr=' + noncestr + '&timestamp=' + now + '&url=http://ec2-54-213-251-18.us-west-2.compute.amazonaws.com/hello';
 
   console.log('[html page] hashing:%s', hashing);
 
@@ -74,9 +76,9 @@ app.get('/hello', function(req, res){
 
   res.type('html').render('hello', {
     appId         : 'wx745009b2b31b5969',
-    noncestr      : req.query.noncestr,
-    timestamp     : req.query.timestamp,
-    jsapi_ticket  : req.query.jsapi_ticket,
+    noncestr      : noncestr,
+    timestamp     : now,
+    jsapi_ticket  : 'sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSsmedBlC0zlg0Mk9A19GcvSkNdVZLDSTgOMHsCTOVm96w',
     signature     : signature
   });
 });
