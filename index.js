@@ -23,7 +23,7 @@ app.get('/', function(req, res) {
   console.log('[timestamp:%s, nonce:%s, echostr:%s, signature:%s]', timestamp, nonce, echostr, signature);
 
   var sha1 = crypto.createHash('sha1');
-  var expects = sha1.update(_.sortBy([timestamp, nonce, '1']).join(''), 'utf8').digest('hex');
+  var expects = sha1.update(_.sortBy([timestamp, nonce, '1']).join(''), 'ascii').digest('hex');
 
   console.log('[signature:%s vs. expects:%s]', signature, expects);
 
@@ -64,11 +64,26 @@ app.post('/', function(req, res){
 
 app.get('/hello', function(req, res){
 
-  res.type('html').render('hello');
+  var hashing = 'jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSsmedBlC0zlg0Mk9A19GcvSkNdVZLDSTgOMHsCTOVm96w&noncestr=' + req.query.noncestr + '&timestamp=' + req.query.timestamp + '&url=' + req.url;
+
+  console.log('[html page] hashing:%s', hashing);
+
+  var sha1 = crypto.createHash('sha1');
+  //jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1414587457&url=http://mp.weixin.qq.com?params=value
+  var signature = sha1.update(hashing, 'ascii').digest('hex');
+
+  res.type('html').render('hello', {
+    appId         : 'wx745009b2b31b5969'
+    noncestr      : req.query.noncestr,
+    timestamp     : req.query.timestamp,
+    jsapi_ticket  : req.query.jsapi_ticket,
+    signature     : signature
+  });
 });
 
 var server = app.listen(80, function () {
   var host = server.address().address;
   var port = server.address().port;
+
   console.log('wechat iot app listening at http://%s:%s', host, port);
 });
