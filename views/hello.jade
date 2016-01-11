@@ -32,8 +32,8 @@ html(lang="en")
           ]                         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         wx.ready(function(){
-          wx.invoke('getWXDeviceInfos', {}, function(res){
-              alert('getWXDeviceInfos:' + JSON.stringify(res));
+          wx.invoke('openWXDeviceLib', {}, function(res){
+              alert('openWXDeviceLib:' + JSON.stringify(res));
           });
         });
         wx.error(function(res){
