@@ -65,12 +65,14 @@ app.post('/', function(req, res){
 app.get('/hello', function(req, res){
 
   var noncestr = req.query.noncestr || Date.now();
-  var now = Date.now();
-  var hashing = 'jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSsmedBlC0zlg0Mk9A19GcvSkNdVZLDSTgOMHsCTOVm96w&noncestr=' + noncestr + '&timestamp=' + now + '&url=http://ec2-54-213-251-18.us-west-2.compute.amazonaws.com/hello';
+  var now = Math.floor(Date.now() / 1000);
+  var hashing = 'jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSubeM_h7rZ3zSognVA5KOL0Lz0fatPvl3mSecccEj6vwg&noncestr=' + noncestr + '&timestamp=' + now + '&url=http://ec2-54-213-251-18.us-west-2.compute.amazonaws.com/hello';
 
   console.log('[html page] hashing:%s', hashing);
 
   var sha1 = crypto.createHash('sha1');
+  //{"access_token":"dGZaEWWM5_GXK4PCOvcIBKbbbj8TVspo-ugRCgqKuO0B8NDXCV5GTcILMmSZbBCJFlH1JjBpcJq53wcCkc_wwu3fZMs2Gydi9jhDamHsiWUTVKcAGAJLA","expires_in":7200}
+  //{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VP4_63kSlZPZB4-NDJpwhSubeM_h7rZ3zSognVA5KOL0Lz0fatPvl3mSecccEj6vwg","expires_in":7200}
   //jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1414587457&url=http://mp.weixin.qq.com?params=value
   var signature = sha1.update(hashing, 'ascii').digest('hex');
 
