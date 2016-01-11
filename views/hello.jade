@@ -33,7 +33,7 @@ html(lang="en")
         wx.ready(function(){
           alert('wx ready!');
 
-          alert(JSON.stringify(getWXDeviceInfos()));
+          alert(JSON.stringify(wx.getWXDeviceInfos()));
         });
         wx.error(function(res){
           alert('wx error:' + JSON.stringify(res));
