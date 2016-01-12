@@ -38,11 +38,11 @@ html(lang="en")
               wx.invoke('getWXDeviceInfos', {}, function(res){
                 alert('getWXDeviceInfos:' + JSON.stringify(res));
 
-                wx.invoke('onScanWXDeviceResult', {}, function(res) {
+                wx.on('onScanWXDeviceResult', function(res) {
                   alert('onScanWXDeviceResult:' + JSON.stringify(res));
                 });
 
-                wx.invoke('startScanWXDevice', {}, function(res){
+                wx.invoke('startScanWXDevice', {'btVersion':'ble'}, function(res){
                   alert('startScanWXDevice:' + JSON.stringify(res));
                 });
               });
