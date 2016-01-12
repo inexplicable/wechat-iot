@@ -34,6 +34,12 @@ html(lang="en")
         wx.ready(function(){
           wx.invoke('openWXDeviceLib', {}, function(res){
               alert('openWXDeviceLib:' + JSON.stringify(res));
+
+              wx.invoke('getWXDeviceInfos', {}, function(res){
+                alert('getWXDeviceInfos:' + JSON.stringify(res));
+
+                
+              });
           });
         });
         wx.error(function(res){
